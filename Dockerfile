@@ -1,17 +1,9 @@
-FROM node:16
-
+FROM node:22-slim
+RUN apt-get update && apt-get install -y procps && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
-
 COPY package*.json ./
-
 RUN npm install
-
 COPY . .
-
 RUN npm run tsc
-
-RUN npm run build
-
 EXPOSE 3000
-
-CMD [ "npm", "run", "up" ]
+CMD [ "npm", "run", "prod" ]

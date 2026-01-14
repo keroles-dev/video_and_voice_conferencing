@@ -1,0 +1,13 @@
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 8px;
+  height: 80vh;
+}
+
+.video-tile {
+  width: 100%;
+  max-height: 80vh;
+  object-fit: cover;
+  border-radius: 8px;
+}

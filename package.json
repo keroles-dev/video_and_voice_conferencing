@@ -1,15 +1,13 @@
 {
-  "name": "pure_node_js_streaming_app",
+  "name": "Video Conferencing App",
   "version": "1.0.0",
-  "description": "pure node js video and audio conference app using [websocket, webRTC]",
+  "description": "",
   "main": "dist/server.js",
   "scripts": {
-    "up": "node dist/server.js",
-    "up-dev": "nodemon dist/server.js",
-    "tsc": "tsc",
-    "tsc-dev": "tsc -w",
-    "build": "webpack",
-    "build-dev": "webpack --watch",
+    "prod": "node dist/server.js",
+    "dev": "nodemon dist/server.js",
+    "build": "tsc",
+    "build-dev": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "keroles",
@@ -19,9 +17,7 @@
     "@types/node": "^20.4.2",
     "ts-node": "^8.4.1",
     "nodemon": "^3.0.1",
-    "typescript": "^5.1.6",
-    "webpack": "^5.88.2",
-    "webpack-cli": "^5.1.4"
+    "typescript": "^5.1.6"
   },
   "dependencies": {
     "socket.io": "^4.7.1"

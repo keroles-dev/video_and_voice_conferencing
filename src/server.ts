@@ -1,41 +1,22 @@
-import * as http from 'http';
-import * as url from 'url';
-import * as socketIO from 'socket.io';
-import * as constant from './util/constant';
-import * as file from './util/file';
+import { createServer, IncomingMessage, ServerResponse } from 'node:http';
+import { parse } from 'node:url';
+import { Server } from 'socket.io';
 import { log } from './util/debug';
 
 // handle requests
-async function handler(req: http.IncomingMessage, res: http.ServerResponse) {
+async function handler(req: IncomingMessage, res: ServerResponse) {
+    const parsedUrl = parse(req.url, true);
 
-    const parsedUrl = url.parse(req.url!, true);
-
-    if (parsedUrl.pathname === '/') {
-
-        const view = await file.get(constant.VIEW_PATH + 'index.html',);
-
-        res.setHeader('Content-Type', 'text/html');
-        res.end(view);
-
-    } else if (parsedUrl.pathname?.includes('/public/asset')) {
-
-        const view = await file.get(constant.ASSET_PATH + 'index.js',);
-
-        res.setHeader('Content-Type', 'application/javascript');
-        res.end(view);
-
-    } else {
-        res.writeHead(404, { 'Content-type': 'text/plain' });
-        res.write('404 Not Found');
-        res.end();
-    };
+    res.writeHead(404, { 'Content-type': 'text/plain' });
+    res.write(`404 Not Found - ${parsedUrl.path}`);
+    res.end();
 }
 
 // create server
-const httpServer = http.createServer(handler);
+const httpServer = createServer(handler);
 
 // create socket server
-const socketServer = new socketIO.Server(httpServer);
+const socketServer = new Server(httpServer);
 
 // store connected sockets
 let sockets: string[] = [];
@@ -115,4 +96,4 @@ socketServer.on('connection', (socket) => {
 });
 
 // start server
-httpServer.listen(3000, () => 'server started');
+httpServer.listen(3000, () => console.log('server running on port 3000'));
